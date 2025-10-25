@@ -1,0 +1,138 @@
+/* src/styles/KeyboardTester.css */
+
+.keyboard-tester-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.keyboard-tester-content h2 {
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.keyboard-tester-content p {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.keyboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.key {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+  cursor: default;
+  transition: all 0.2s ease;
+  position: relative;
+  user-select: none;
+}
+
+.key.highlighted {
+  background-color: #005500;
+  color: white;
+  box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.3);
+}
+
+.secondary-symbol {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Размеры клавиш */
+.key-small {
+  width: 50px;
+  height: 40px;
+}
+
+.key-medium {
+  width: 60px;
+  height: 40px;
+}
+
+.key-wide {
+  width: 80px;
+  height: 40px;
+}
+
+.key-extra-wide {
+  width: 100px;
+  height: 40px;
+}
+
+.key-space {
+  width: 200px;
+  height: 40px;
+}
+
+.key-arrow {
+  width: 40px;
+  height: 40px;
+}
+
+/* Кнопка сброса */
+.page-controls .reset-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.page-controls .reset-btn:hover {
+  opacity: 0.9;
+}
+
+/* История нажатий */
+.key-history {
+  display: flex;
+  height: 46px;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  overflow-x: auto;
+  justify-content: flex-start;
+}
+
+.history-key {
+  width: 40px;
+  height: 30px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--success);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--success);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.history-key:hover {
+  box-shadow: 0 0 3px 3px rgba(0, 255, 55, 0.3);
+}

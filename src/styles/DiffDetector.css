@@ -1,0 +1,144 @@
+/* src/styles/DiffDetector.css */
+
+.diff-detector-content {
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+}
+
+.textareas-container {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.textarea-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.textarea-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-textarea {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: monospace;
+  resize: none;
+  min-height: 0;
+}
+
+.diff-result-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.diff-columns {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.diff-column {
+  flex: 1;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-y: auto;
+  font-family: monospace;
+}
+
+/* Кнопки */
+.page-controls .clear-all-btn {
+  background-color: var(--critical);
+  color: white;
+  border: 1px solid var(--critical-border);
+}
+.page-controls .clear-all-btn:hover {
+  opacity: 0.9;
+}
+
+.page-controls .normalize-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.page-controls .normalize-btn:hover {
+  opacity: 0.9;
+}
+
+.page-controls .compare-btn {
+  background-color: var(--accent);
+  color: white;
+}
+.page-controls .compare-btn:hover {
+  opacity: 0.9;
+}
+
+.page-controls .edit-btn {
+  background-color: var(--success);
+  color: white;
+}
+.page-controls .edit-btn:hover {
+  opacity: 0.9;
+}
+
+/* Цвета для различий */
+.diff-same {
+  background-color: transparent;
+}
+
+.diff-deleted {
+  background-color: #550000;
+  color: white;
+  text-decoration: line-through;
+}
+
+.diff-added {
+  background-color: #005500;
+  color: white;
+  font-weight: bold;
+}
+
+.diff-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  font-family: monospace;
+  padding: 0;
+  margin: 0;
+}
+
+.diff-column {
+  overflow-x: hidden;
+}
+
+.diff-no-differences {
+  text-align: center;
+  padding: 24px;
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.diff-has-differences {
+  color: #ff6b6b;
+  margin-bottom: 12px;
+  text-align: center;
+}
