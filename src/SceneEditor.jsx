@@ -1,9 +1,9 @@
 // src/SceneEditor.jsx
+
 import React, { useState, useRef, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/SceneEditor.css';
 
-// Компонент одной сцены (без изменений)
 const Scene = ({
   scene,
   canDeleteScene,
@@ -13,6 +13,11 @@ const Scene = ({
   onDeleteVariant,
   onDeleteScene,
   onTitleChange,
+  onMoveUp,
+  onMoveDown,
+  sceneIndex,
+  totalScenes,
+  flashingSceneIds,
 }) => {
   const [deleteConfirm, setDeleteConfirm] = useState({
     variantId: null,
@@ -74,8 +79,13 @@ const Scene = ({
     }
   };
 
+  const canMoveUp = sceneIndex > 0;
+  const canMoveDown = sceneIndex < totalScenes - 1;
+
+  const isFlashing = flashingSceneIds.includes(scene.id);
+
   return (
-    <div className="scene">
+    <div className={`scene ${isFlashing ? 'flashing' : ''}`}>
       <div className="scene-sidebar">
         <div>
           <div className="scene-title-wrapper">
@@ -101,6 +111,27 @@ const Scene = ({
           </div>
 
           <div className="char-count">{charCount} симв.</div>
+        </div>
+
+        <div className="move-buttons">
+          {canMoveUp && (
+            <button
+              className="move-up-btn"
+              onClick={() => onMoveUp(scene.id)}
+              title="Переместить вверх"
+            >
+              ↑
+            </button>
+          )}
+          {canMoveDown && (
+            <button
+              className="move-down-btn"
+              onClick={() => onMoveDown(scene.id)}
+              title="Переместить вниз"
+            >
+              ↓
+            </button>
+          )}
         </div>
 
         {canDeleteScene && (
@@ -175,7 +206,6 @@ const Scene = ({
   );
 };
 
-// Основной компонент
 const SceneEditor = () => {
   useEffect(() => {
     document.title = 'Редактор сцен — Writer Toolkit';
@@ -209,6 +239,8 @@ const SceneEditor = () => {
   });
 
   const [showClearAllConfirm, setShowClearAllConfirm] = useState(false);
+  const [flashingSceneIds, setFlashingSceneIds] = useState([]);
+  const [showImportError, setShowImportError] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('scene-editor-data', JSON.stringify(scenes));
@@ -298,6 +330,63 @@ const SceneEditor = () => {
     );
   };
 
+  const moveSceneUp = (sceneId) => {
+    setScenes(prevScenes => {
+      const index = prevScenes.findIndex(scene => scene.id === sceneId);
+      if (index > 0) {
+        const newScenes = [...prevScenes];
+        const allDefault = newScenes.every((s, i) => s.title === `Сцена ${i + 1}`);
+        [newScenes[index], newScenes[index - 1]] = [newScenes[index - 1], newScenes[index]];
+
+        if (allDefault) {
+          const updatedScenes = newScenes.map((s, i) => ({
+            ...s,
+            title: `Сцена ${i + 1}`
+          }));
+          return updatedScenes;
+        }
+
+        return newScenes;
+      }
+      return prevScenes;
+    });
+
+    setFlashingSceneIds([sceneId, scenes[scenes.findIndex(s => s.id === sceneId) - 1].id]);
+  };
+
+  const moveSceneDown = (sceneId) => {
+    setScenes(prevScenes => {
+      const index = prevScenes.findIndex(scene => scene.id === sceneId);
+      if (index < prevScenes.length - 1) {
+        const newScenes = [...prevScenes];
+        const allDefault = newScenes.every((s, i) => s.title === `Сцена ${i + 1}`);
+        [newScenes[index], newScenes[index + 1]] = [newScenes[index + 1], newScenes[index]];
+
+        if (allDefault) {
+          const updatedScenes = newScenes.map((s, i) => ({
+            ...s,
+            title: `Сцена ${i + 1}`
+          }));
+          return updatedScenes;
+        }
+
+        return newScenes;
+      }
+      return prevScenes;
+    });
+
+    setFlashingSceneIds([sceneId, scenes[scenes.findIndex(s => s.id === sceneId) + 1].id]);
+  };
+
+  useEffect(() => {
+    if (flashingSceneIds.length > 0) {
+      const timer = setTimeout(() => {
+        setFlashingSceneIds([]);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [flashingSceneIds]);
+
   const normalizeLineBreaks = () => {
     setScenes((prevScenes) =>
       prevScenes.map((scene) => ({
@@ -337,6 +426,42 @@ const SceneEditor = () => {
     URL.revokeObjectURL(url);
   };
 
+  const validateImportedData = (data) => {
+    if (!Array.isArray(data)) {
+      return false;
+    }
+
+    for (const scene of data) {
+      if (
+        typeof scene !== 'object' ||
+        scene === null ||
+        typeof scene.id !== 'number' ||
+        !Array.isArray(scene.variants) ||
+        typeof scene.activeVariant !== 'number' ||
+        typeof scene.title !== 'string'
+      ) {
+        return false;
+      }
+
+      for (const variant of scene.variants) {
+        if (
+          typeof variant !== 'object' ||
+          variant === null ||
+          typeof variant.id !== 'number' ||
+          typeof variant.text !== 'string'
+        ) {
+          return false;
+        }
+      }
+
+      const activeVariantExists = scene.variants.some(v => v.id === scene.activeVariant);
+      if (!activeVariantExists) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const importFromJson = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -344,6 +469,11 @@ const SceneEditor = () => {
     reader.onload = (event) => {
       try {
         const imported = JSON.parse(event.target.result);
+        if (!validateImportedData(imported)) {
+          setShowImportError(true);
+          e.target.value = '';
+          return;
+        }
         if (Array.isArray(imported) && imported.length > 0) {
           const migrated = imported.map((scene) => ({
             ...scene,
@@ -352,7 +482,8 @@ const SceneEditor = () => {
           setScenes(migrated);
         }
       } catch (err) {
-        alert('Ошибка при загрузке JSON');
+        setShowImportError(true);
+        e.target.value = '';
       }
     };
     reader.readAsText(file);
@@ -374,7 +505,6 @@ const SceneEditor = () => {
     }
   };
 
-  // Убрали кнопку "Что это?" из controls
   const editorControls = (
     <>
       <button className="addScene" onClick={addScene}>
@@ -424,7 +554,6 @@ const SceneEditor = () => {
     </>
   );
 
-  // Текст справки для PageLayout
   const helpText = {
     title: 'Редактор сцен',
     description:
@@ -436,13 +565,16 @@ const SceneEditor = () => {
       'Экспортируйте/импортируйте данные в JSON',
       'Очищайте лишние переносы строк',
       'Все данные сохраняются автоматически',
+      'Перемещайте сцены с помощью кнопок в боковой панели',
+      'При перемещении дефолтных сцен их названия автоматически обновляются',
+      'Перемещённые сцены кратковременно подсвечиваются',
     ],
   };
 
   return (
     <PageLayout controls={editorControls} helpText={helpText}>
       <div className="scenes">
-        {scenes.map((scene) => (
+        {scenes.map((scene, index) => (
           <Scene
             key={scene.id}
             scene={scene}
@@ -459,6 +591,11 @@ const SceneEditor = () => {
             onDeleteVariant={deleteVariant}
             onDeleteScene={deleteScene}
             onTitleChange={updateSceneTitle}
+            onMoveUp={moveSceneUp}
+            onMoveDown={moveSceneDown}
+            sceneIndex={index}
+            totalScenes={scenes.length}
+            flashingSceneIds={flashingSceneIds}
           />
         ))}
       </div>
@@ -473,6 +610,18 @@ const SceneEditor = () => {
               </button>
               <button className="modal-cancel-btn" onClick={() => setShowClearAllConfirm(false)}>
                 Отмена
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showImportError && (
+        <div className="modal-overlay" onClick={() => setShowImportError(false)}>
+          <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+            <p>Ваш JSON не соответствует структуре, необходимой для SceneEditor.</p>
+            <div className="modal-buttons">
+              <button className="modal-cancel-btn" onClick={() => setShowImportError(false)}>
+                Закрыть
               </button>
             </div>
           </div>

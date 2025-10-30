@@ -12,12 +12,10 @@
   border-bottom: 1px solid var(--border);
   z-index: 200;
 }
-
 .nav-burger {
   display: flex;
   align-items: center;
 }
-
 .burger-btn {
   background: var(--bg-tertiary);
   color: white;
@@ -31,8 +29,6 @@
   align-items: center;
   justify-content: center;
 }
-
-/* Выпадающее меню навигации */
 .nav-menu {
   position: absolute;
   top: 50px;
@@ -47,7 +43,6 @@
   z-index: 150;
   min-width: 160px;
 }
-
 .nav-menu a {
   color: var(--text-primary);
   text-decoration: none;
@@ -55,12 +50,9 @@
   border-radius: 4px;
   transition: background 0.2s;
 }
-
 .nav-menu a:hover {
   background: var(--bg-tertiary);
 }
-
-/* Кнопки управления (только в редакторе) */
 .page-controls {
   display: flex;
   justify-content: space-between;
@@ -70,20 +62,17 @@
   min-height: 40px;
   flex: 1;
 }
-
 .page-controls-left {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
-
 .page-controls-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .page-controls button {
   padding: 8px 12px;
   font-size: 14px;
@@ -93,32 +82,26 @@
   font-weight: 500;
   transition: opacity 0.2s;
 }
-
 .page-controls button.addScene {
   background-color: var(--accent);
   color: white;
 }
-
 .page-controls button.exportToJson {
   background-color: var(--success);
   color: white;
 }
-
 .page-controls button.importFromJson,
 .page-controls button.normalizeLineBreaks {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
-
 .page-controls button.normalizeLineBreaks {
   color: var(--text-secondary);
 }
-
 .page-controls button:hover {
   opacity: 0.9;
 }
-
 .page-controls .help-btn {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
@@ -128,26 +111,21 @@
   border-radius: 6px;
   white-space: nowrap;
 }
-
 .page-controls .help-btn:hover {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
-
-/* Регулятор шрифта */
 .font-size-control {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .font-field {
   display: flex;
   align-items: center;
   background-color: var(--bg-tertiary);
   border-radius: 4px;
 }
-
 .font-field .font-btn {
   width: 28px;
   height: 28px;
@@ -162,18 +140,15 @@
   justify-content: center;
   transition: all 0.2s ease;
 }
-
 .font-btn:hover {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
-
 .font-btn:active {
   transform: scale(0.95);
   background-color: var(--accent);
   color: white;
 }
-
 .font-input {
   width: 36px;
   height: 28px;
@@ -186,28 +161,17 @@
   outline: none;
   font-family: inherit;
 }
-
 .font-input:focus {
   background-color: var(--bg-secondary);
 }
-
-/* Убираем стрелки у input[type=number] */
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* ========================
-   ОСНОВНОЙ КОНТЕНТ
-======================== */
 .page-content {
   padding: 16px;
 }
-
-/* ========================
-   ДИАЛОГИ ПОДТВЕРЖДЕНИЯ
-======================== */
 .delete-confirm-dialog {
   display: flex;
   align-items: center;
@@ -218,12 +182,10 @@ input[type='number']::-webkit-inner-spin-button {
   border-radius: 6px;
   font-size: 14px;
 }
-
 .confirm-buttons {
   display: flex;
   gap: 8px;
 }
-
 .confirm-buttons button {
   padding: 4px 8px;
   border: none;
@@ -231,23 +193,18 @@ input[type='number']::-webkit-inner-spin-button {
   cursor: pointer;
   font-size: 12px;
 }
-
 .confirm-buttons button:first-child {
   background-color: var(--danger);
   color: white;
 }
-
 .confirm-buttons button:last-child {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
-
 .confirm-buttons button:hover {
   opacity: 0.9;
 }
-
-/* Модальное окно */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -260,7 +217,6 @@ input[type='number']::-webkit-inner-spin-button {
   justify-content: center;
   z-index: 1000;
 }
-
 .modal-dialog {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -271,19 +227,16 @@ input[type='number']::-webkit-inner-spin-button {
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
-
 .modal-dialog p {
   margin-bottom: 20px;
   font-size: 16px;
   color: var(--text-primary);
 }
-
 .modal-buttons {
   display: flex;
   gap: 12px;
   justify-content: center;
 }
-
 .modal-confirm-btn {
   background-color: var(--danger);
   color: white;
@@ -293,11 +246,9 @@ input[type='number']::-webkit-inner-spin-button {
   cursor: pointer;
   font-weight: 500;
 }
-
 .modal-confirm-btn:hover {
   background-color: var(--danger-hover);
 }
-
 .modal-cancel-btn {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
@@ -306,36 +257,29 @@ input[type='number']::-webkit-inner-spin-button {
   border-radius: 6px;
   cursor: pointer;
 }
-
-/* Модальное окно помощи */
 .help-dialog {
   max-width: 500px;
   padding: 24px;
 }
-
 .help-dialog h3 {
   margin-top: 0;
   color: var(--accent);
   font-size: 20px;
   margin-bottom: 16px;
 }
-
 .help-dialog p {
   margin-bottom: 12px;
   line-height: 1.5;
 }
-
 .help-dialog ul {
   text-align: left;
   padding-left: 20px;
   margin-bottom: 20px;
   color: var(--text-secondary);
 }
-
 .help-dialog li {
   margin-bottom: 8px;
 }
-
 .modal-close-btn {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
@@ -345,7 +289,6 @@ input[type='number']::-webkit-inner-spin-button {
   cursor: pointer;
   font-weight: 500;
 }
-
 .modal-close-btn:hover {
   background-color: var(--bg-secondary);
 }

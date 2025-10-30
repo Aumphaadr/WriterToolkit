@@ -54,6 +54,12 @@
   box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.3);
 }
 
+.key.pressed-once {
+  background-color: #4d6b5c;
+  color: var(--text-primary);
+  border-color: #6a8c72;
+}
+
 .secondary-symbol {
   position: absolute;
   top: 2px;
@@ -62,7 +68,6 @@
   opacity: 0.7;
 }
 
-/* Размеры клавиш */
 .key-small {
   width: 50px;
   height: 40px;
@@ -93,17 +98,16 @@
   height: 40px;
 }
 
-/* Кнопка сброса */
 .page-controls .reset-btn {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
+
 .page-controls .reset-btn:hover {
   opacity: 0.9;
 }
 
-/* История нажатий */
 .key-history {
   display: flex;
   height: 46px;

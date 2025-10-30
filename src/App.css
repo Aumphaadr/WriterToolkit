@@ -1,3 +1,5 @@
+/* src/App.css */
+
 :root {
   --bg-primary: #121212;
   --bg-secondary: #1e1e1e;
@@ -344,7 +346,7 @@ body {
   align-items: center;
   gap: 4px;
   background-color: var(--bg-tertiary);
-  border-radius: 20px; /* круглые края */
+  border-radius: 20px;
   padding: 4px;
   border: 1px solid var(--border);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);

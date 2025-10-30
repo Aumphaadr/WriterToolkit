@@ -1,4 +1,5 @@
 // src/HtmlTagger.jsx
+
 import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/HtmlTagger.css';
@@ -11,6 +12,7 @@ const HtmlTagger = () => {
   const [inputText, setInputText] = useState('');
   const [outputHtml, setOutputHtml] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
+  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
   const transformText = () => {
     let processedText = inputText.replace(/«([\s\S]*?)»/g, (match, content) => {
@@ -65,7 +67,23 @@ const HtmlTagger = () => {
     setOutputHtml('');
   };
 
-  // Убрали кнопку "Что это?" из controls
+  const copyToClipboard = async () => {
+    if (!outputHtml.trim()) {
+      alert('Нет данных для копирования');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(outputHtml);
+      setShowCopiedMessage(true);
+      setTimeout(() => {
+        setShowCopiedMessage(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      alert('Не удалось скопировать текст в буфер обмена');
+    }
+  };
+
   const taggerControls = (
     <>
       <button className="convert-btn" onClick={transformText}>
@@ -83,10 +101,13 @@ const HtmlTagger = () => {
       <button className="clear-all-nd-btn" onClick={clearAll}>
         Очистить всё
       </button>
+      <button className="copy-to-clipboard-btn" onClick={copyToClipboard}>
+        Скопировать в буфер
+      </button>
+      {showCopiedMessage && <span className="copied-message">Скопировано!</span>}
     </>
   );
 
-  // Справка для PageLayout
   const helpText = {
     title: 'HTML-теггер',
     description:
@@ -98,6 +119,7 @@ const HtmlTagger = () => {
       'Предпросмотр результата без перезагрузки',
       'Скачивание результата как HTML-файл',
       'Открытие предпросмотра в новой вкладке',
+      'Копирование результата в буфер обмена',
     ],
   };
 

@@ -1,4 +1,5 @@
 // src/PageLayout.jsx
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +42,6 @@ const PageLayout = ({ children, controls = null, helpText = null }) => {
 
       <div className="page-content">{children}</div>
 
-      {/* Модальное окно помощи */}
       {showHelp && helpText && (
         <div className="modal-overlay" onClick={closeHelp}>
           <div className="modal-dialog help-dialog" onClick={(e) => e.stopPropagation()}>

@@ -1,4 +1,5 @@
 // src/KeyboardTester.jsx
+
 import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/KeyboardTester.css';
@@ -10,6 +11,7 @@ const KeyboardTester = () => {
 
   const [highlightedKeys, setHighlightedKeys] = useState(new Set());
   const [keyHistory, setKeyHistory] = useState([]);
+  const [pressedOnceKeys, setPressedOnceKeys] = useState(new Set());
 
   const keyMap = {
     'Escape': { symbols: ['Esc'], className: 'key-small' },
@@ -136,6 +138,7 @@ const KeyboardTester = () => {
   const highlightKey = (keyCode) => {
     if (!keyMap[keyCode]) return;
     setHighlightedKeys(prev => new Set([...prev, keyCode]));
+    setPressedOnceKeys(prev => new Set([...prev, keyCode]));
     setTimeout(() => {
       setHighlightedKeys(prev => {
         const newSet = new Set(prev);
@@ -165,19 +168,20 @@ const KeyboardTester = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Убрали кнопку "Что это?" из controls
+  const resetAll = () => {
+    setHighlightedKeys(new Set());
+    setKeyHistory([]);
+    setPressedOnceKeys(new Set());
+  };
+
   const testerControls = (
     <>
-      <button className="reset-btn" onClick={() => {
-        setHighlightedKeys(new Set());
-        setKeyHistory([]);
-      }}>
+      <button className="reset-btn" onClick={resetAll}>
         Сбросить подсветку и историю
       </button>
     </>
   );
 
-  // Справка для PageLayout
   const helpText = {
     title: 'Тестер клавиатуры',
     description:
@@ -188,6 +192,7 @@ const KeyboardTester = () => {
       'Работает как в английской, так и в русской раскладке',
       'Показывает оба символа (англ/рус) на клавишах',
       'Позволяет быстро выявить глючные клавиши',
+      'Клавиши, нажатые хотя бы раз, остаются подсвечеными светло-зелёным',
     ],
   };
 
@@ -213,10 +218,11 @@ const KeyboardTester = () => {
                 if (!keyInfo) return null;
                 const { symbols, className } = keyInfo;
                 const isHighlighted = highlightedKeys.has(keyCode);
+                const wasPressedOnce = pressedOnceKeys.has(keyCode);
                 return (
                   <div
                     key={keyCode}
-                    className={`key ${className} ${isHighlighted ? 'highlighted' : ''}`}
+                    className={`key ${className} ${isHighlighted ? 'highlighted' : ''} ${wasPressedOnce && !isHighlighted ? 'pressed-once' : ''}`}
                   >
                     {symbols[0]}
                     {symbols.length > 1 && (

@@ -60,7 +60,6 @@
   font-family: monospace;
 }
 
-/* Кнопки */
 .page-controls .clear-all-btn {
   background-color: var(--critical);
   color: white;
@@ -95,7 +94,6 @@
   opacity: 0.9;
 }
 
-/* Цвета для различий */
 .diff-same {
   background-color: transparent;
 }

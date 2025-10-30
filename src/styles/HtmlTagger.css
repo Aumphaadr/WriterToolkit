@@ -50,13 +50,17 @@
   background-color: var(--bg-secondary);
 }
 
-/* Кнопки теггера */
 .page-controls .convert-btn {
   background-color: var(--accent);
   color: white;
 }
 
 .page-controls .download-btn {
+  background-color: var(--success);
+  color: white;
+}
+
+.page-controls .copy-to-clipboard-btn {
   background-color: var(--success);
   color: white;
 }
@@ -76,7 +80,13 @@
   border: 1px solid var(--border);
 }
 
-/* Предпросмотр HTML */
+.copied-message {
+  color: var(--success);
+  font-size: 14px;
+  margin-left: 8px;
+  align-self: center;
+}
+
 .html-preview {
   padding: 24px;
   border-radius: 8px;

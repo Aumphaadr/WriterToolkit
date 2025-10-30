@@ -1,4 +1,5 @@
 // src/DiffDetector.jsx
+
 import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/DiffDetector.css';
@@ -75,7 +76,6 @@ const DiffDetector = () => {
     setText2(normalizeLineBreaks(text2));
   };
 
-  // Убрали кнопку "Что это?" из controls
   const diffControls = (
     <>
       <button className="clear-all-btn" onClick={handleClearAll}>
@@ -96,7 +96,6 @@ const DiffDetector = () => {
     </>
   );
 
-  // Справка для PageLayout
   const helpText = {
     title: 'Детектор различий',
     description:

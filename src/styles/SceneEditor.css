@@ -1,17 +1,10 @@
 /* src/styles/SceneEditor.css */
 
-/* ========================
-   СПИСОК СЦЕН
-======================== */
 .scenes {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
-/* ========================
-   ОДНА СЦЕНА
-======================== */
 .scene {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -22,7 +15,6 @@
   gap: 20px;
   align-items: stretch;
 }
-
 .scene-sidebar {
   display: flex;
   flex-direction: column;
@@ -35,7 +27,6 @@
   text-align: center;
   position: relative;
 }
-
 .scene-number {
   font-size: 18px;
   font-weight: bold;
@@ -43,16 +34,13 @@
   margin: 0;
   transition: all 0.2s ease;
 }
-
 .scene-number:hover {
   box-shadow: 0 0 4px var(--accent-glow) inset;
 }
-
 .char-count {
   font-size: 14px;
   color: var(--text-secondary);
 }
-
 .delete-scene-btn {
   background-color: var(--danger);
   color: white;
@@ -68,33 +56,25 @@
   transition: background-color 0.2s;
   flex-shrink: 0;
 }
-
 .delete-scene-btn:hover {
   background-color: var(--danger-hover);
 }
-
 .scene-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
-/* ========================
-   КНОПКИ ВАРИАНТОВ
-======================== */
 .variants-buttons {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   align-items: center;
 }
-
 .variant-button-wrapper {
   position: relative;
   display: inline-block;
 }
-
 .variants-buttons button:not(.delete-variant-badge) {
   padding: 8px 12px;
   border: 1px solid var(--border);
@@ -107,17 +87,14 @@
   min-width: 32px;
   text-align: center;
 }
-
 .variants-buttons button:not(.delete-variant-badge):hover {
   box-shadow: 0 0 8px var(--accent-glow);
 }
-
 .variants-buttons button.active {
   background-color: var(--accent);
   color: white;
   border-color: var(--accent);
 }
-
 .variants-buttons button.add-variant-btn {
   background-color: var(--add-bg);
   color: white;
@@ -133,15 +110,10 @@
   font-size: 18px;
   transition: background-color 0.2s;
 }
-
 .variants-buttons button.add-variant-btn:hover {
   background-color: var(--success-hover);
   box-shadow: none;
 }
-
-/* ========================
-   ТЕКСТОВОЕ ПОЛЕ
-======================== */
 .variant-text {
   width: 100%;
   padding: 12px;
@@ -154,16 +126,11 @@
   min-height: 80px;
   transition: border-color 0.2s;
 }
-
 .variant-text:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
-
-/* ========================
-   КНОПКИ УДАЛЕНИЯ (BADGE)
-======================== */
 .delete-variant-badge {
   position: absolute;
   top: -8px;
@@ -184,13 +151,10 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   opacity: 0;
 }
-
 .delete-variant-badge:hover {
   background-color: var(--danger-hover);
   opacity: 1;
 }
-
-/* Диалог удаления сцены (позиционируется внутри сцены) */
 .scene-delete-dialog {
   position: absolute;
   bottom: 50px;
@@ -206,19 +170,16 @@
   flex-direction: column;
   align-items: center;
 }
-
 .scene-delete-dialog .confirm-buttons {
   display: flex;
   gap: 6px;
   margin-top: 6px;
   width: 100%;
 }
-
 .scene-delete-dialog .confirm-buttons button {
   flex: 1;
   text-align: center;
 }
-
 .page-controls .clear-all-scenes-btn {
   background-color: var(--critical);
   color: white;
@@ -226,14 +187,10 @@
 .page-controls .clear-all-scenes-btn:hover {
   background-color: var(--critical-hover);
 }
-
-/* Обёртка для редактируемого заголовка */
 .scene-title-wrapper {
   display: inline-block;
   position: relative;
 }
-
-/* Статичный заголовок */
 .scene-number {
   font-size: 18px;
   font-weight: bold;
@@ -244,12 +201,9 @@
   padding: 4px 8px;
   border-radius: 4px;
 }
-
 .scene-number:hover {
   background-color: rgba(0, 123, 255, 0.1);
 }
-
-/* Инпут при редактировании */
 .scene-title-input {
   width: 100%;
   padding: 4px 8px;
@@ -262,12 +216,9 @@
   outline: none;
   font-family: inherit;
 }
-
 .scene-title-input:focus {
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
 }
-
-/* Кнопка "Что это?" */
 .page-controls .help-btn {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
@@ -276,8 +227,49 @@
   padding: 6px 10px;
   border-radius: 6px;
 }
-
 .page-controls .help-btn:hover {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
+}
+.move-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: center;
+}
+.move-up-btn,
+.move-down-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.move-up-btn:hover,
+.move-down-btn:hover {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+@keyframes flashScene {
+  0% {
+    background-color: var(--bg-secondary);
+  }
+  25% {
+    background-color: var(--bg-secondary-flash);
+  }
+  100% {
+    background-color: var(--bg-secondary);
+  }
+}
+.scene.flashing {
+  animation: flashScene 0.8s ease-out forwards;
 }

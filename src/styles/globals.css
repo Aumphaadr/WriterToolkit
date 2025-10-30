@@ -1,10 +1,6 @@
 /* src/styles/globals.css */
 
-/* ========================
-   ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ
-======================== */
 :root {
-  /* базовые цвета — твои */
   --bg-primary: rgb(7, 9, 15);
   --bg-secondary: rgb(16, 21, 31);
   --bg-tertiary: rgb(25, 33, 47);
@@ -13,40 +9,34 @@
   --border: rgb(40, 44, 66);
   --add-bg: rgb(20, 134, 81);
 
-  /* accent — более глубокий и насыщенный */
   --accent: rgb(40, 120, 220);
   --accent-hover: rgb(30, 95, 175);
   --accent-border: rgb(70, 145, 245);
   --accent-glow: rgb(90, 170, 255);
 
-  /* success — более «бутылочный» зелёный */
   --success: rgb(30, 120, 60);
   --success-hover: rgb(25, 95, 50);
   --success-border: rgb(60, 170, 90);
   --success-glow: rgb(80, 200, 110);
 
-  /* danger — немного приглушим, чтобы не бил в глаза */
   --danger: rgb(190, 50, 50);
   --danger-hover: rgb(150, 40, 40);
   --danger-border: rgb(220, 80, 80);
   --danger-glow: rgb(255, 100, 100);
 
-  /* critical — более мрачный, тревожный, с намёком на бордо */
   --critical: rgb(120, 20, 30);
   --critical-hover: rgb(100, 15, 25);
   --critical-border: rgb(128, 22, 31);
   --critical-glow: rgb(255, 60, 70);
+
+  --bg-secondary-flash: rgb(40, 50, 70);
 }
 
-/* ========================
-   ГЛОБАЛЬНЫЕ СТИЛИ
-======================== */
 * {
   margin: 0;
   padding: 0;
   font-family: 'Inter' ,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
-  /* Для Firefox */
   scrollbar-width: auto;
   scrollbar-color: var(--border) var(--bg-primary);
 }
@@ -57,7 +47,6 @@ body {
   line-height: 1.6;
 }
 
-/* Стилизация скроллбара (WebKit/Blink) */
 ::-webkit-scrollbar {
   width: 16px;
   height: 16px;
