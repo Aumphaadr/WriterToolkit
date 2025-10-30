@@ -84,6 +84,11 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## 📸 Скриншоты
 
+![Scene Editor](screenshots/scene_editor.png "Редактор сцен")
+![HTML Tagger](screenshots/html_tagger.png "HTML-теггер")
+![Diff Detector](screenshots/diff_detector.png "Детектор различий")
+![Keyboard Tester](screenshots/keyboard_tester.png "Тестер клавиатуры")
+
 ---
 
 ## 📝 Лицензия
