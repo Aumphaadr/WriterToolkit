@@ -21,6 +21,7 @@ const PageLayout = ({ children, controls = null, helpText = null }) => {
               <Link to="/" onClick={() => setMenuOpen(false)}>Редактор сцен</Link>
               <Link to="/html-tagger" onClick={() => setMenuOpen(false)}>HTML-теггер</Link>
               <Link to="/diff-detector" onClick={() => setMenuOpen(false)}>Детектор различий</Link>
+              <Link to="/markdown-preview" onClick={() => setMenuOpen(false)}>Предпросмотр Markdown</Link>
               <Link to="/key-tester" onClick={() => setMenuOpen(false)}>Тестер клавиатуры</Link>
             </nav>
           )}
