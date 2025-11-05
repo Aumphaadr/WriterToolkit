@@ -270,7 +270,19 @@ const SceneEditor = () => {
 
   const deleteScene = (sceneId) => {
     if (scenes.length <= 1) return;
-    setScenes(scenes.filter((s) => s.id !== sceneId));
+
+    const allDefaultBeforeDelete = scenes.every((s, i) => s.title === `Сцена ${i + 1}`);
+    const newScenes = scenes.filter((s) => s.id !== sceneId);
+
+    if (allDefaultBeforeDelete) {
+      const updatedScenes = newScenes.map((s, i) => ({
+        ...s,
+        title: `Сцена ${i + 1}`
+      }));
+      setScenes(updatedScenes);
+    } else {
+      setScenes(newScenes);
+    }
   };
 
   const addVariant = (sceneId) => {
@@ -307,9 +319,9 @@ const SceneEditor = () => {
       scenes.map((scene) =>
         scene.id === sceneId
           ? {
-              ...scene,
-              variants: scene.variants.map((v) => (v.id === variantId ? { ...v, text } : v)),
-            }
+            ...scene,
+            variants: scene.variants.map((v) => (v.id === variantId ? { ...v, text } : v)),
+          }
           : scene
       )
     );
