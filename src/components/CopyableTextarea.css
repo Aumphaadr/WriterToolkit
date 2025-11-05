@@ -1,0 +1,55 @@
+/* src/components/CopyableTextarea.css */
+
+.copyable-textarea-wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.copyable-textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  flex: 1;
+  min-height: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.copy-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+  background-color: var(--accent);
+  color: white;
+}
+
+.copy-btn.copied {
+  background-color: var(--success);
+  color: white;
+  border-color: var(--success);
+}

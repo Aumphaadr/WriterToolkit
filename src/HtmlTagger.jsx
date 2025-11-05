@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/HtmlTagger.css';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const HtmlTagger = () => {
   useEffect(() => {
@@ -130,20 +131,22 @@ const HtmlTagger = () => {
           <div className="textareas-container">
             <div className="textarea-group">
               <label>Исходный текст:</label>
-              <textarea
+              <CopyableTextarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Вставьте сюда текст с кавычками «...»"
                 className="input-textarea"
+                onCopy={copyToClipboard}
               />
             </div>
             <div className="textarea-group">
               <label>Результат (HTML):</label>
-              <textarea
+              <CopyableTextarea
                 value={outputHtml}
                 readOnly
                 placeholder="Нажмите «Преобразовать»"
                 className="output-textarea"
+                onCopy={copyToClipboard}
               />
             </div>
           </div>

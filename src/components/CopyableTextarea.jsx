@@ -1,0 +1,45 @@
+// src/components/CopyableTextarea.jsx
+import React, { useState } from 'react';
+import './CopyableTextarea.css';
+
+const CopyableTextarea = ({ value, onChange, placeholder, className, onCopy }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async () => {
+    if (!value) {
+      alert('Нет текста для копирования');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(value);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 1000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      alert('Не удалось скопировать текст в буфер обмена');
+    }
+  };
+
+  return (
+    <div className="copyable-textarea-wrapper">
+      <textarea
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={`copyable-textarea ${className || ''}`}
+      />
+      {onCopy && (
+        <button
+          type="button"
+          className={`copy-btn ${isCopied ? 'copied' : ''}`}
+          onClick={handleCopy}
+          title="Скопировать в буфер обмена"
+        >
+          {isCopied ? '✅' : '📋'}
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default CopyableTextarea;
