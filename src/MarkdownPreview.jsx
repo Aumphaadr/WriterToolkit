@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import PageLayout from './PageLayout';
 import './styles/MarkdownPreview.css';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const MarkdownPreview = () => {
   const [markdownText, setMarkdownText] = useState('');
@@ -42,19 +43,6 @@ const MarkdownPreview = () => {
     setPreviewMode(!previewMode);
   };
 
-  const copyMarkdownToClipboard = async () => {
-    if (!markdownText.trim()) {
-      alert('Нет Markdown-текста для копирования');
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(markdownText);
-    } catch (err) {
-      console.error('Failed to copy markdown: ', err);
-      alert('Не удалось скопировать Markdown в буфер обмена');
-    }
-  };
-
   const downloadMarkdown = () => {
     if (!markdownText.trim()) {
       alert('Нет Markdown-текста для скачивания');
@@ -85,9 +73,6 @@ const MarkdownPreview = () => {
 
   const previewControls = (
     <>
-      <button className="copy-markdown-btn" onClick={copyMarkdownToClipboard}>
-        Скопировать Markdown
-      </button>
       <button className="download-markdown-btn" onClick={downloadMarkdown}>
         Скачать Markdown
       </button>
@@ -107,7 +92,7 @@ const MarkdownPreview = () => {
           <div className="textareas-container">
             <div className="textarea-group">
               <label>Markdown:</label>
-              <textarea
+              <CopyableTextarea
                 value={markdownText}
                 onChange={(e) => setMarkdownText(e.target.value)}
                 placeholder="Введите Markdown-разметку сюда..."

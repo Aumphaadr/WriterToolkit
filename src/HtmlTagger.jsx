@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/HtmlTagger.css';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const HtmlTagger = () => {
   useEffect(() => {
@@ -67,23 +68,6 @@ const HtmlTagger = () => {
     setOutputHtml('');
   };
 
-  const copyToClipboard = async () => {
-    if (!outputHtml.trim()) {
-      alert('Нет данных для копирования');
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(outputHtml);
-      setShowCopiedMessage(true);
-      setTimeout(() => {
-        setShowCopiedMessage(false);
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-      alert('Не удалось скопировать текст в буфер обмена');
-    }
-  };
-
   const taggerControls = (
     <>
       <button className="convert-btn" onClick={transformText}>
@@ -101,10 +85,6 @@ const HtmlTagger = () => {
       <button className="clear-all-nd-btn" onClick={clearAll}>
         Очистить всё
       </button>
-      <button className="copy-to-clipboard-btn" onClick={copyToClipboard}>
-        Скопировать в буфер
-      </button>
-      {showCopiedMessage && <span className="copied-message">Скопировано!</span>}
     </>
   );
 
@@ -130,7 +110,7 @@ const HtmlTagger = () => {
           <div className="textareas-container">
             <div className="textarea-group">
               <label>Исходный текст:</label>
-              <textarea
+              <CopyableTextarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Вставьте сюда текст с кавычками «...»"
@@ -139,11 +119,11 @@ const HtmlTagger = () => {
             </div>
             <div className="textarea-group">
               <label>Результат (HTML):</label>
-              <textarea
+              <CopyableTextarea
                 value={outputHtml}
-                readOnly
                 placeholder="Нажмите «Преобразовать»"
                 className="output-textarea"
+                readOnly={true}
               />
             </div>
           </div>
