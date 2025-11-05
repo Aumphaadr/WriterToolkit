@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/DiffDetector.css';
 import { diff_match_patch } from 'diff-match-patch';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const getWordForm = (number, forms) => {
   const n = Math.abs(number) % 100;
@@ -119,7 +120,7 @@ const DiffDetector = () => {
               <label>
                 Текст 1 ({text1.length} {getWordForm(text1.length, ['символ', 'символа', 'символов'])}):
               </label>
-              <textarea
+              <CopyableTextarea
                 value={text1}
                 onChange={(e) => setText1(e.target.value)}
                 placeholder="Введите первый текст"
@@ -130,7 +131,7 @@ const DiffDetector = () => {
               <label>
                 Текст 2 ({text2.length} {getWordForm(text2.length, ['символ', 'символа', 'символов'])}):
               </label>
-              <textarea
+              <CopyableTextarea
                 value={text2}
                 onChange={(e) => setText2(e.target.value)}
                 placeholder="Введите второй текст"

@@ -68,6 +68,7 @@ const HtmlTagger = () => {
     setOutputHtml('');
   };
 
+  /*
   const copyToClipboard = async () => {
     if (!outputHtml.trim()) {
       alert('Нет данных для копирования');
@@ -84,6 +85,7 @@ const HtmlTagger = () => {
       alert('Не удалось скопировать текст в буфер обмена');
     }
   };
+  */
 
   const taggerControls = (
     <>
@@ -102,10 +104,6 @@ const HtmlTagger = () => {
       <button className="clear-all-nd-btn" onClick={clearAll}>
         Очистить всё
       </button>
-      <button className="copy-to-clipboard-btn" onClick={copyToClipboard}>
-        Скопировать в буфер
-      </button>
-      {showCopiedMessage && <span className="copied-message">Скопировано!</span>}
     </>
   );
 
@@ -136,17 +134,15 @@ const HtmlTagger = () => {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Вставьте сюда текст с кавычками «...»"
                 className="input-textarea"
-                onCopy={copyToClipboard}
               />
             </div>
             <div className="textarea-group">
               <label>Результат (HTML):</label>
               <CopyableTextarea
                 value={outputHtml}
-                readOnly
                 placeholder="Нажмите «Преобразовать»"
                 className="output-textarea"
-                onCopy={copyToClipboard}
+                readOnly={true}
               />
             </div>
           </div>

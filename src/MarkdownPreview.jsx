@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import PageLayout from './PageLayout';
 import './styles/MarkdownPreview.css';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const MarkdownPreview = () => {
   const [markdownText, setMarkdownText] = useState('');
@@ -85,9 +86,6 @@ const MarkdownPreview = () => {
 
   const previewControls = (
     <>
-      <button className="copy-markdown-btn" onClick={copyMarkdownToClipboard}>
-        Скопировать Markdown
-      </button>
       <button className="download-markdown-btn" onClick={downloadMarkdown}>
         Скачать Markdown
       </button>
@@ -107,7 +105,7 @@ const MarkdownPreview = () => {
           <div className="textareas-container">
             <div className="textarea-group">
               <label>Markdown:</label>
-              <textarea
+              <CopyableTextarea
                 value={markdownText}
                 onChange={(e) => setMarkdownText(e.target.value)}
                 placeholder="Введите Markdown-разметку сюда..."

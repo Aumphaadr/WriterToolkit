@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PageLayout from './PageLayout';
 import './styles/SceneEditor.css';
+import CopyableTextarea from './components/CopyableTextarea';
 
 const Scene = ({
   scene,
@@ -192,7 +193,7 @@ const Scene = ({
           )}
         </div>
 
-        <textarea
+        <CopyableTextarea
           value={scene.variants.find((v) => v.id === scene.activeVariant)?.text || ''}
           onChange={(e) =>
             onActiveVariantChange(scene.id, scene.activeVariant, e.target.value)

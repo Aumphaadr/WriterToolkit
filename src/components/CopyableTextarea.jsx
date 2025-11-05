@@ -1,8 +1,8 @@
 // src/components/CopyableTextarea.jsx
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import './CopyableTextarea.css';
 
-const CopyableTextarea = ({ value, onChange, placeholder, className, onCopy }) => {
+const CopyableTextarea = forwardRef(({ value, onChange, placeholder, className, readOnly = false, ...props }, ref) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -23,23 +23,26 @@ const CopyableTextarea = ({ value, onChange, placeholder, className, onCopy }) =
   return (
     <div className="copyable-textarea-wrapper">
       <textarea
+        ref={ref}
+        className={`copyable-textarea ${className || ''}`}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`copyable-textarea ${className || ''}`}
+        readOnly={readOnly}
+        {...props}
       />
-      {onCopy && (
-        <button
-          type="button"
-          className={`copy-btn ${isCopied ? 'copied' : ''}`}
-          onClick={handleCopy}
-          title="Скопировать в буфер обмена"
-        >
-          {isCopied ? '✅' : '📋'}
-        </button>
-      )}
+      <button
+        type="button"
+        className={`copy-btn ${isCopied ? 'copied' : ''}`}
+        onClick={handleCopy}
+        title="Скопировать в буфер обмена"
+      >
+        {isCopied ? '✅' : '📋'}
+      </button>
     </div>
   );
-};
+});
+
+CopyableTextarea.displayName = 'CopyableTextarea';
 
 export default CopyableTextarea;
