@@ -55,6 +55,7 @@
   line-height: 1.6;
   overflow-y: auto;
   min-height: 0;
+  /* Стили для элементов Markdown */
 }
 
 .markdown-output-full {
@@ -100,6 +101,25 @@
   color: var(--text-primary);
 }
 
+/* Стили для списков */
+.markdown-output ul,
+.markdown-output ol,
+.markdown-output-full ul,
+.markdown-output-full ol {
+  list-style-position: inside;
+}
+
+/* Кнопки (добавлены новые классы) */
+.page-controls .copy-markdown-btn {
+  background-color: var(--success); /* Зелёная, как кнопка скачивания */
+  color: white;
+}
+
+.page-controls .download-markdown-btn {
+  background-color: var(--accent); /* Синяя */
+  color: white;
+}
+
 .page-controls .clear-all-md-btn {
   background-color: var(--danger);
   color: white;
@@ -115,9 +135,61 @@
   border: 1px solid var(--border);
 }
 
-.markdown-output ul,
-.markdown-output ol,
-.markdown-output-full ul,
-.markdown-output-full ol {
-  list-style-position: inside;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-dialog {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-confirm-btn {
+  background-color: var(--danger);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-confirm-btn:hover {
+  background-color: var(--danger-hover);
+}
+
+.modal-cancel-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }

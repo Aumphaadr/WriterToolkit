@@ -9,6 +9,7 @@ const MarkdownPreview = () => {
   const [markdownText, setMarkdownText] = useState('');
   const [htmlOutput, setHtmlOutput] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   useEffect(() => {
     document.title = 'Предпросмотр Markdown — Writer Toolkit';
@@ -26,10 +27,46 @@ const MarkdownPreview = () => {
 
   const clearAll = () => {
     setMarkdownText('');
+    setShowClearConfirm(false);
+  };
+
+  const handleClearClick = () => {
+    setShowClearConfirm(true);
+  };
+
+  const cancelClear = () => {
+    setShowClearConfirm(false);
   };
 
   const togglePreview = () => {
     setPreviewMode(!previewMode);
+  };
+
+  const copyMarkdownToClipboard = async () => {
+    if (!markdownText.trim()) {
+      alert('Нет Markdown-текста для копирования');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(markdownText);
+    } catch (err) {
+      console.error('Failed to copy markdown: ', err);
+      alert('Не удалось скопировать Markdown в буфер обмена');
+    }
+  };
+
+  const downloadMarkdown = () => {
+    if (!markdownText.trim()) {
+      alert('Нет Markdown-текста для скачивания');
+      return;
+    }
+    const blob = new Blob([markdownText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'markdown_content.md';
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   const helpText = {
@@ -41,12 +78,20 @@ const MarkdownPreview = () => {
       'Предварительный просмотр результата',
       'Очистка содержимого',
       'Безопасный рендеринг HTML',
+      'Копирование Markdown в буфер обмена',
+      'Скачивание Markdown как .md файл',
     ],
   };
 
   const previewControls = (
     <>
-      <button className="clear-all-md-btn" onClick={clearAll}>
+      <button className="copy-markdown-btn" onClick={copyMarkdownToClipboard}>
+        Скопировать Markdown
+      </button>
+      <button className="download-markdown-btn" onClick={downloadMarkdown}>
+        Скачать Markdown
+      </button>
+      <button className="clear-all-md-btn" onClick={handleClearClick}>
         Очистить всё
       </button>
       <button className="preview-md-btn" onClick={togglePreview}>
@@ -83,6 +128,22 @@ const MarkdownPreview = () => {
               className="markdown-output-full"
               dangerouslySetInnerHTML={{ __html: htmlOutput || '<p>Введите Markdown для предпросмотра</p>' }}
             />
+          </div>
+        )}
+
+        {showClearConfirm && (
+          <div className="modal-overlay" onClick={cancelClear}>
+            <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+              <p>Вы действительно хотите очистить всё содержимое?</p>
+              <div className="modal-buttons">
+                <button className="modal-confirm-btn" onClick={clearAll}>
+                  Да, очистить
+                </button>
+                <button className="modal-cancel-btn" onClick={cancelClear}>
+                  Отмена
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
