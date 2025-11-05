@@ -68,25 +68,6 @@ const HtmlTagger = () => {
     setOutputHtml('');
   };
 
-  /*
-  const copyToClipboard = async () => {
-    if (!outputHtml.trim()) {
-      alert('Нет данных для копирования');
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(outputHtml);
-      setShowCopiedMessage(true);
-      setTimeout(() => {
-        setShowCopiedMessage(false);
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-      alert('Не удалось скопировать текст в буфер обмена');
-    }
-  };
-  */
-
   const taggerControls = (
     <>
       <button className="convert-btn" onClick={transformText}>

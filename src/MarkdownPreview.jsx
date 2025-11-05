@@ -43,19 +43,6 @@ const MarkdownPreview = () => {
     setPreviewMode(!previewMode);
   };
 
-  const copyMarkdownToClipboard = async () => {
-    if (!markdownText.trim()) {
-      alert('Нет Markdown-текста для копирования');
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(markdownText);
-    } catch (err) {
-      console.error('Failed to copy markdown: ', err);
-      alert('Не удалось скопировать Markdown в буфер обмена');
-    }
-  };
-
   const downloadMarkdown = () => {
     if (!markdownText.trim()) {
       alert('Нет Markdown-текста для скачивания');
